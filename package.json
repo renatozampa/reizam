@@ -1,0 +1,25 @@
+{
+  "name": "reizam",
+  "version": "1.0.0",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
+  "main": "server.js",
+  "scripts": {
+      "dev": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/aula-daves/ifet/2025/qualidade-e-teste-de-software/renato.zampa/reizam.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/aula-daves/ifet/2025/qualidade-e-teste-de-software/renato.zampa/reizam/issues"
+  },
+  "homepage": "https://gitlab.com/aula-daves/ifet/2025/qualidade-e-teste-de-software/renato.zampa/reizam#readme",
+  "dependencies": {
+    "express": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
