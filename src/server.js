@@ -1,5 +1,6 @@
 const express = require("express");
-const path = require("path")
+const path = require("path");
+const { login } = require("./lib/library");
 const app = express()
 const PORT = 3000
 
@@ -25,7 +26,21 @@ app.get('/categorias', (req, res) => {
 app.get('/login', (req, res) => {
     res.status(200).render("login")
 })
+app.get("/questoesProfessor", (req, res) => { 
+    res.status(200).render('questoesProfessor')
+})
 
+
+app.post('/fazerLogin', (req, res) => { 
+    const {email, senha} = req.body 
+    try { 
+        login(email, senha)
+        return res.redirect("/questoesProfessor")
+    } catch(erro) { 
+        return res.render("login", { msg: erro.message }); 
+    }
+    
+})
 
 
 app.listen(PORT, () => {
