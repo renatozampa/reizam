@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { login } = require("./lib/library");
+const { login, listarQuestoes } = require("./lib/library");
 const app = express()
 const PORT = 3000
 
@@ -18,16 +18,16 @@ app.get('/', (req, res) => {
   res.render("home")
 });
 app.get('/questoes', (req, res) => {
-    res.status(200).render("questoes")
+    res.status(200).render("questoes", { lista : listarQuestoes() })
 })
 app.get('/categorias', (req, res) => {
     res.status(200).render("categorias")
 })
 app.get('/login', (req, res) => {
-    res.status(200).render("login")
+    res.render("login", { msg: null });
 })
 app.get("/questoesProfessor", (req, res) => { 
-    res.status(200).render('questoesProfessor')
+    res.status(200).render('questoesProfessor', {lista : listarQuestoes()})
 })
 
 

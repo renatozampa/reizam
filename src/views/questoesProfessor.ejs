@@ -7,5 +7,12 @@
 </head>
 <body>
     <h1>Questões na visao do professor</h1>
+    <ul>
+        <% lista.forEach(q=> { %>
+            <li>
+                <%= q.enunciado %>
+            </li>
+            <% }) %>
+    </ul>
 </body>
 </html>

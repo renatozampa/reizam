@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require('path');
+
 const professoresVerif = [
     {
         "nome": "Renato Zampa",
@@ -26,4 +29,12 @@ function login(email, senha) {
 }
 
 
-module.exports = { login }
+
+function listarQuestoes() {
+    const filePath = path.join(__dirname, '../dataBase/listaQuestoes.json');
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    return data;
+}
+
+
+module.exports = { login, listarQuestoes }
