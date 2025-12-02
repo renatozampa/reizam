@@ -69,6 +69,23 @@ function adicionarQuestao(novaQuestao) {
     return novaQuestao;
 }
 
+function atualizarQuestao(id, dadosAtualizados) {
+    const lista = listarQuestoes();
+
+    const index = lista.findIndex(q => q.id == id);
+    if (index === -1) {
+        throw new Error("Questão não encontrada");
+    }
+
+    // Mantém o ID original e substitui o restante
+    lista[index] = {
+        ...lista[index],
+        ...dadosAtualizados,
+    };
+
+    fs.writeFileSync(filePath, JSON.stringify(lista, null, 2), "utf-8");
+}
+
 
 module.exports = { 
     login,
@@ -76,5 +93,6 @@ module.exports = {
     buscarQuestaoPorId,
     salvarQuestoes,
     gerarNovoID,
-    adicionarQuestao
+    adicionarQuestao,
+    atualizarQuestao
 };

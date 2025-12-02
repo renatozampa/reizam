@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { login, listarQuestoes, buscarQuestaoPorId, adicionarQuestao} = require("./lib/library");
+const { login, listarQuestoes, buscarQuestaoPorId, adicionarQuestao, atualizarQuestao} = require("./lib/library");
 const app = express()
 const PORT = 3000
 
@@ -32,8 +32,15 @@ app.get("/questoesProfessor", (req, res) => {
 })
 app.get("/formQuestao", (req, res) => { 
     res.status(200).render("formQuestao")
-
 })
+app.get("/editarQuestao/:id", (req, res) => {
+    const id = req.params.id;
+    const questao = buscarQuestaoPorId(id);
+    if (!questao) {
+        return res.status(404).send("Questão não encontrada!");
+    }
+    res.render("formEditarQuestao", { questao });
+});
 
 
 app.post('/fazerLogin', (req, res) => { 
@@ -98,6 +105,39 @@ app.post("/criarQuestao", (req, res) => {
 
     res.redirect("/questoesProfessor");
 
+});
+
+app.post("/editarQuestao/:id", (req, res) => {
+    const id = req.params.id;
+    const {
+        enunciado,
+        materia,
+        tema,
+        altA,
+        altB,
+        altC,
+        altD,
+        altE,
+        correta,
+        explicacao
+    } = req.body;
+
+    const dadosAtualizados = {
+        enunciado,
+        materia,
+        tema,
+        altA,
+        altB,
+        altC,
+        altD,
+        altE,
+        correta,
+        explicacao
+    };
+
+    atualizarQuestao(id, dadosAtualizados);
+
+    res.redirect("/questoesProfessor");
 });
 
 

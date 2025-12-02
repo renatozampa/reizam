@@ -35,7 +35,12 @@
 
             <% lista.forEach((q, index)=> { %>
 
+
+
+
                 <div class="questao questao-prof">
+
+                    <a href="/editarQuestao/<%= q.id %>" class="btn-editar">✏ Editar</a>
 
                     <h2>
                         <%= index + 1 %>. <%= q.enunciado %>
@@ -51,8 +56,7 @@
                     </div>
 
                     <div class="opcoes">
-                        <% ["A", "B" , "C" , "D" , "E" ].forEach(op=> { %>
-
+                        <% ["A","B","C","D","E"].forEach(op=> { %>
                             <div class="opcao <%= q.correta === op ? 'correta' : '' %>">
                                 <strong>
                                     <%= op %>)
@@ -61,7 +65,6 @@
                                     <%= q["alt" + op] %>
                                 </span>
                             </div>
-
                             <% }) %>
                     </div>
 
@@ -75,6 +78,7 @@
                     </div>
 
                 </div>
+
 
                 <% }) %>
         </div>
