@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/formQuestao.css">
+    <link rel="stylesheet" href="/styles/header.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="/">Reizam</a>
+        <ul>
+            <li><a href="/questoes">Questões</a></li>
+            <li><a href="/categorias">Categorias</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </header>
+    <main class="container">
+
+        <h1 class="titulo">Criar Nova Questão</h1>
+
+        <form action="/criarQuestao" method="POST" class="form-questao">
+
+            <div class="campo">
+                <label for="materia">Matéria</label>
+                <input type="text" id="materia" name="materia" placeholder="Ex.: Matemática" required>
+            </div>
+
+            
+            <div class="campo">
+                <label for="tema">Tema</label>
+                <input type="text" id="tema" name="tema" placeholder="Ex.: Funções do 1° grau" required>
+            </div>
+
+            <div class="campo">
+                <label for="enunciado">Enunciado da Questão</label>
+                <textarea id="enunciado" name="enunciado" rows="4" required></textarea>
+            </div>
+
+
+            <div class="campo">
+                <label>Alternativas</label>
+
+                <div class="alt">
+                    <span>A)</span>
+                    <input type="text" name="altA" required>
+                </div>
+
+                <div class="alt">
+                    <span>B)</span>
+                    <input type="text" name="altB" required>
+                </div>
+
+                <div class="alt">
+                    <span>C)</span>
+                    <input type="text" name="altC" required>
+                </div>
+
+                <div class="alt">
+                    <span>D)</span>
+                    <input type="text" name="altD" required>
+                </div>
+
+                <div class="alt">
+                    <span>E)</span>
+                    <input type="text" name="altE" required>
+                </div>
+            </div>
+
+
+            <div class="campo">
+                <label for="correta">Alternativa Correta</label>
+                <select name="correta" id="correta" required>
+                    <option value="" selected disabled>Selecione</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+
+            <div class="campo">
+                <label for="explicacao">Explicação da Questão</label>
+                <textarea id="explicacao" name="explicacao" rows="5" required></textarea>
+            </div>
+
+
+            <button type="submit" class="btn">Salvar Questão</button>
+
+        </form>
+
+    </main>
+
+</body>
+
+</html>

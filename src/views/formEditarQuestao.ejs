@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Questão</title>
+
+    <link rel="stylesheet" href="/styles/formQuestao.css">
+    <link rel="stylesheet" href="/styles/header.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+<header>
+    <a href="/">Reizam</a>
+    <ul>
+        <li><a href="/questoes">Questões</a></li>
+        <li><a href="/categorias">Categorias</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
+</header>
+
+<main class="container">
+
+    <h1 class="titulo">Editar Questão</h1>
+
+    <form action="/editarQuestao/<%= questao.id %>" method="POST" class="form-questao">
+
+        <div class="campo">
+            <label for="enunciado">Enunciado da Questão</label>
+            <textarea id="enunciado" name="enunciado" rows="4" required><%= questao.enunciado %></textarea>
+        </div>
+
+        <div class="campo">
+            <label for="materia">Matéria</label>
+            <input type="text" id="materia" name="materia" value="<%= questao.materia %>" required>
+        </div>
+
+        <div class="campo">
+            <label for="tema">Tema</label>
+            <input type="text" id="tema" name="tema" value="<%= questao.tema %>" required>
+        </div>
+
+        <div class="campo">
+            <label>Alternativas</label>
+
+            <div class="alt">
+                <span>A)</span>
+                <input type="text" name="altA" value="<%= questao.altA %>" required>
+            </div>
+
+            <div class="alt">
+                <span>B)</span>
+                <input type="text" name="altB" value="<%= questao.altB %>" required>
+            </div>
+
+            <div class="alt">
+                <span>C)</span>
+                <input type="text" name="altC" value="<%= questao.altC %>" required>
+            </div>
+
+            <div class="alt">
+                <span>D)</span>
+                <input type="text" name="altD" value="<%= questao.altD %>" required>
+            </div>
+
+            <div class="alt">
+                <span>E)</span>
+                <input type="text" name="altE" value="<%= questao.altE %>" required>
+            </div>
+        </div>
+
+        <div class="campo">
+            <label for="correta">Alternativa Correta</label>
+            <select name="correta" id="correta" required>
+                <option value="A" <%= questao.correta === "A" ? "selected" : "" %>>A</option>
+                <option value="B" <%= questao.correta === "B" ? "selected" : "" %>>B</option>
+                <option value="C" <%= questao.correta === "C" ? "selected" : "" %>>C</option>
+                <option value="D" <%= questao.correta === "D" ? "selected" : "" %>>D</option>
+                <option value="E" <%= questao.correta === "E" ? "selected" : "" %>>E</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="explicacao">Explicação</label>
+            <textarea id="explicacao" name="explicacao" rows="5" required><%= questao.explicacao %></textarea>
+        </div>
+
+        <button type="submit" class="btn">Salvar Alterações</button>
+
+    </form>
+
+</main>
+
+</body>
+</html>
