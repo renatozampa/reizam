@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questões | Reizam</title>
+
+    <link rel="stylesheet" href="/styles/questoes.css">
+    <link rel="stylesheet" href="/styles/header.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="/">Reizam</a>
+        <ul>
+            <li><a href="/questoes">Questões</a></li>
+            <li><a href="/categorias">Categorias</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </header>
+    <main class="container">
+        <h1 class="titulo">Banco de Questões</h1>
+
+        <div class="lista-questoes">
+
+            <% lista.forEach((q, index)=> { %>
+
+                <form action="/responderQuestao" method="POST" class="questao">
+
+                    <h2>
+                        <%= index + 1 %>. <%= q.enunciado %>
+                    </h2>
+
+                    <div class="opcoes">
+                        <% ["A", "B" , "C" , "D" , "E" ].forEach(op=> { %>
+
+                            <% let status="" ; if (feedback && feedback.idQuestao==q.id) { if (feedback.correta===op)
+                                status="correta" ; if (feedback.escolhido===op && !feedback.acertou) status="errada" ; }
+                                %>
+
+                                <label class="opcao <%= status %>">
+                                    <input type="radio" name="resposta" value="<%= op %>" <%=feedback &&
+                                        feedback.idQuestao==q.id ? "disabled" : "" %>
+                                    required
+                                    >
+                                    <span>
+                                        <%= q["alt" + op] %>
+                                    </span>
+                                </label>
+
+                                <% }) %>
+                    </div>
+
+                    <input type="hidden" name="idQuestao" value="<%= q.id %>" />
+
+                    <% if (!feedback || feedback.idQuestao !=q.id) { %>
+                        <button type="submit" class="btn">Responder</button>
+                        <% } %>
+
+                            <% if (feedback && feedback.idQuestao==q.id) { %>
+                                <div class="feedback">
+                                    <% if (feedback.acertou) { %>
+                                        <p class="correto">✔ Você acertou!</p>
+                                        <% } else { %>
+                                            <p class="errado">✖ Você errou. A correta é <strong>
+                                                    <%= feedback.correta %>
+                                                </strong></p>
+                                            <% } %>
+
+                                                <p class="explicacao">
+                                                    <%= feedback.explicacao %>
+                                                </p>
+                                </div>
+                                <% } %>
+
+                </form>
+
+                <% }); %>
+
+        </div>
+    </main>
+
+</body>
+
+</html>
