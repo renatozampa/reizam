@@ -18,7 +18,7 @@
 
 <body>
     <header>
-        <a href="/">Reizam</a> 
+        <a href="/">Reizam</a>
         <ul>
             <li><a href="/questoes">Questões</a></li>
             <li><a href="/categorias">Categorias</a></li>
@@ -30,52 +30,63 @@
 
         <div class="lista-questoes">
 
-            <% lista.forEach((q, index) => { %>
-                <form class="card-questao" method="POST" action="/responderQuestao">
-                    <h2><%= index + 1 %>. <%= q.enunciado %></h2>
+            <% lista.forEach((q, index)=> { %>
 
-                    <span class="tags">
-                        <p class="tag"><%= q.materia %></p>
-                        <p class="tag"><%= q.tema %></p>
-                    </span>
+                <form action="/responderQuestao" method="POST" class="questao">
+
+                    <h2>
+                        <%= index + 1 %>. <%= q.enunciado %>
+                    </h2>
 
                     <div class="opcoes">
-                        <label class="opcao">
-                            <input type="radio" name="resposta" value="A" required>
-                            <span><%= q.altA %></span>
-                        </label>
+                        <% ["A", "B" , "C" , "D" , "E" ].forEach(op=> { %>
 
-                        <label class="opcao">
-                            <input type="radio" name="resposta" value="B">
-                            <span><%= q.altB %></span>
-                        </label>
+                            <% let status="" ; if (feedback && feedback.idQuestao==q.id) { if (feedback.correta===op)
+                                status="correta" ; if (feedback.escolhido===op && !feedback.acertou) status="errada" ; }
+                                %>
 
-                        <label class="opcao">
-                            <input type="radio" name="resposta" value="C">
-                            <span><%= q.altC %></span>
-                        </label>
+                                <label class="opcao <%= status %>">
+                                    <input type="radio" name="resposta" value="<%= op %>" <%=feedback &&
+                                        feedback.idQuestao==q.id ? "disabled" : "" %>
+                                    required
+                                    >
+                                    <span>
+                                        <%= q["alt" + op] %>
+                                    </span>
+                                </label>
 
-                        <label class="opcao">
-                            <input type="radio" name="resposta" value="D">
-                            <span><%= q.altD %></span>
-                        </label>
-
-                        <label class="opcao">
-                            <input type="radio" name="resposta" value="E">
-                            <span><%= q.altE %></span>
-                        </label>
+                                <% }) %>
                     </div>
 
-                    <input type="hidden" name="idQuestao" value="<%= q.id %>">
+                    <input type="hidden" name="idQuestao" value="<%= q.id %>" />
 
-                    <button type="submit" class="btn-enviar">
-                        Enviar resposta
-                    </button>
+                    <% if (!feedback || feedback.idQuestao !=q.id) { %>
+                        <button type="submit" class="btn">Responder</button>
+                        <% } %>
+
+                            <% if (feedback && feedback.idQuestao==q.id) { %>
+                                <div class="feedback">
+                                    <% if (feedback.acertou) { %>
+                                        <p class="correto">✔ Você acertou!</p>
+                                        <% } else { %>
+                                            <p class="errado">✖ Você errou. A correta é <strong>
+                                                    <%= feedback.correta %>
+                                                </strong></p>
+                                            <% } %>
+
+                                                <p class="explicacao">
+                                                    <%= feedback.explicacao %>
+                                                </p>
+                                </div>
+                                <% } %>
+
                 </form>
-            <% }) %>
+
+                <% }); %>
 
         </div>
     </main>
 
 </body>
+
 </html>

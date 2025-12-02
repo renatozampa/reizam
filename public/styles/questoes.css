@@ -1,14 +1,14 @@
-* { 
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "JetBrains Mono";
+    font-family: "JetBrains Mono", monospace;
 }
-
 
 body {
     margin: 0;
     background: #f8f9fa;
+    color: #1a1a1a;
 }
 
 .container {
@@ -19,75 +19,126 @@ body {
 
 .titulo {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 800;
 }
+
+
 
 .lista-questoes {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
 }
 
-.card-questao {
+
+.questao {
     background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgb(102, 101, 101);
-    border-left: #3b82f6 4px solid;
-}
-
-.card-questao h2 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    
-}
-
-.tags {
+    padding: 25px 30px;
+    border-radius: 14px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+    border-left: 5px solid #3b82f6;
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.tag {
-    background: #e9ecef;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.85rem;
+.questao h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
+
+
 
 .opcoes {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 14px;
 }
 
 .opcao {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f0f0f0;
     cursor: pointer;
+    transition: 0.2s;
+    border: 2px solid transparent;
+    user-select: none;
+}
+
+.opcao:hover {
+    background: #e7e7e7;
+    border-color: #3b82f6;
 }
 
 .opcao input[type="radio"] {
-    width: 18px;
-    height: 18px;
+    transform: scale(1.2);
 }
 
-.btn-enviar {
-    background: #4CAF50;
+
+.opcao.correta {
+    background: #d4edda !important;
+    border-left: 5px solid #28a745 !important;
+}
+
+
+.opcao.errada {
+    background: #f8d7da !important;
+    border-left: 5px solid #dc3545 !important;
+}
+
+
+
+.btn {
+    background: #3b82f6;
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
+    padding: 12px 18px;
+    border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
     transition: 0.3s;
+    align-self: start;
+    font-weight: 600;
 }
 
-.btn-enviar:hover {
-    background: #45a049;
+.btn:hover {
+    background: #2563eb;
+}
+
+
+.feedback {
+    padding: 15px;
+    border-radius: 10px;
+    background: #f1f3f5;
+    margin-top: 5px;
+}
+
+.feedback .correto {
+    color: #28a745;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.feedback .errado {
+    color: #dc3545;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.explicacao {
+    color: #333;
+    font-size: .9rem;
+    line-height: 1.4;
+    margin-top: 6px;
+}
+
+
+.opcao.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }

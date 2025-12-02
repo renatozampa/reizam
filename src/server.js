@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { login, listarQuestoes } = require("./lib/library");
+const { login, listarQuestoes, buscarQuestaoPorId } = require("./lib/library");
 const app = express()
 const PORT = 3000
 
@@ -18,8 +18,9 @@ app.get('/', (req, res) => {
   res.render("home")
 });
 app.get('/questoes', (req, res) => {
-    res.status(200).render("questoes", { lista : listarQuestoes() })
-})
+    const lista = listarQuestoes();
+    res.render("questoes", { lista, feedback: null });
+});
 app.get('/categorias', (req, res) => {
     res.status(200).render("categorias")
 })
@@ -41,6 +42,27 @@ app.post('/fazerLogin', (req, res) => {
     }
     
 })
+
+app.post('/responderQuestao', (req, res) => {
+    const { idQuestao, resposta } = req.body;
+
+    const questao = buscarQuestaoPorId(idQuestao);
+    const lista = listarQuestoes();
+
+    if (!questao) {
+        return res.render("questoes", { lista, feedback: null });
+    }
+
+    const feedback = {
+        idQuestao: questao.id,
+        escolhido: resposta,
+        correta: questao.correta,
+        acertou: resposta === questao.correta,
+        explicacao: questao.explicacao
+    };
+
+    res.render("questoes", { lista, feedback });
+});
 
 
 app.listen(PORT, () => {

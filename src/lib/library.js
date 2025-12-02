@@ -32,9 +32,14 @@ function login(email, senha) {
 
 function listarQuestoes() {
     const filePath = path.join(__dirname, '../dataBase/listaQuestoes.json');
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    return data;
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+}
+
+function buscarQuestaoPorId(id) {
+    const lista = listarQuestoes();
+    return lista.find(q => q.id == id);
 }
 
 
-module.exports = { login, listarQuestoes }
+
+module.exports = { login, listarQuestoes, buscarQuestaoPorId }
