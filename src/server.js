@@ -4,6 +4,14 @@ const { login, listarQuestoes, buscarQuestaoPorId, adicionarQuestao, atualizarQu
 const app = express()
 const PORT = 3000
 
+const session = require("express-session");
+
+app.use(session({
+    secret: "NAN",
+    resave: false,
+    saveUninitialized: true
+}));
+
 app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.json());
 app.set('view engine', 'ejs');
@@ -17,10 +25,18 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.render("home")
 });
-app.get('/questoes', (req, res) => {
+app.get("/questoes", (req, res) => {
+
+    if (!req.session.pontos) req.session.pontos = 0;
+
     const lista = listarQuestoes();
-    res.render("questoes", { lista, feedback: null });
+    res.render("questoes", {
+        lista,
+        pontos: req.session.pontos,
+        feedback: null
+    });
 });
+
 app.get('/categorias', (req, res) => {
     res.status(200).render("categorias")
 })
@@ -50,6 +66,7 @@ app.post('/fazerLogin', (req, res) => {
     const {email, senha} = req.body 
     try { 
         login(email, senha)
+        
         return res.redirect("/questoesProfessor")
     } catch(erro) { 
         return res.render("login", { msg: erro.message }); 
@@ -75,7 +92,11 @@ app.post('/responderQuestao', (req, res) => {
         explicacao: questao.explicacao
     };
 
-    res.render("questoes", { lista, feedback });
+    if (questao.correta === resposta.toUpperCase()) {
+        req.session.pontos += 1;  
+    }
+
+    res.render("questoes", { lista, feedback, pontos: req.session.pontos, });
 });
 
 app.post("/criarQuestao", (req, res) => {

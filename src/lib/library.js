@@ -77,7 +77,6 @@ function atualizarQuestao(id, dadosAtualizados) {
         throw new Error("Questão não encontrada");
     }
 
-    // Mantém o ID original e substitui o restante
     lista[index] = {
         ...lista[index],
         ...dadosAtualizados,
@@ -90,7 +89,6 @@ function atualizarQuestao(id, dadosAtualizados) {
 function listarQuestoesPorMateria(materia) {
     const lista = listarQuestoes();
 
-    // Se não veio materia: retorna tudo
     if (!materia) return lista;
 
     const materiaFormatada = materia.toLowerCase();

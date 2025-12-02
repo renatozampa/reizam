@@ -43,3 +43,11 @@ header li a {
 header li:hover {
     opacity: 0.7;
 }
+
+.pontuacao {
+    background: #5865f2;
+    padding: 7px 12px;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+}
