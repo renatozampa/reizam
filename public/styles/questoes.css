@@ -143,3 +143,24 @@ body {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+
+.topo-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-nova {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-nova:hover {
+    background-color: #45A049;
+}

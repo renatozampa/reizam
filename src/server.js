@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { login, listarQuestoes, buscarQuestaoPorId } = require("./lib/library");
+const { login, listarQuestoes, buscarQuestaoPorId, adicionarQuestao} = require("./lib/library");
 const app = express()
 const PORT = 3000
 
@@ -29,6 +29,10 @@ app.get('/login', (req, res) => {
 })
 app.get("/questoesProfessor", (req, res) => { 
     res.status(200).render('questoesProfessor', {lista : listarQuestoes()})
+})
+app.get("/formQuestao", (req, res) => { 
+    res.status(200).render("formQuestao")
+
 })
 
 
@@ -62,6 +66,38 @@ app.post('/responderQuestao', (req, res) => {
     };
 
     res.render("questoes", { lista, feedback });
+});
+
+app.post("/criarQuestao", (req, res) => {
+    const {
+        enunciado,
+        materia,
+        tema,
+        altA,
+        altB,
+        altC,
+        altD,
+        altE,
+        correta,
+        explicacao
+    } = req.body;
+
+    const novaQuestaoDados = {
+        enunciado,
+        materia,
+        tema,
+        altA,
+        altB,
+        altC,
+        altD,
+        altE,
+        correta,
+        explicacao
+    }
+    adicionarQuestao(novaQuestaoDados);
+
+    res.redirect("/questoesProfessor");
+
 });
 
 

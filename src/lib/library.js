@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require('path');
+const filePath = path.join(__dirname, '../dataBase/listaQuestoes.json');
 
 const professoresVerif = [
     {
@@ -7,7 +8,7 @@ const professoresVerif = [
         "email": 'renato@gmail.com',
         "senha": "zampa"
     }
-]
+];
 
 function verificaLogin(email, senha) {
     return professoresVerif.some(
@@ -21,7 +22,7 @@ function login(email, senha) {
     }
 
     const isValid = verificaLogin(email, senha);
-    
+
     if (!isValid) {
         throw new Error("Esse usuário não é verificado!");
     }
@@ -29,9 +30,7 @@ function login(email, senha) {
 }
 
 
-
 function listarQuestoes() {
-    const filePath = path.join(__dirname, '../dataBase/listaQuestoes.json');
     return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 }
 
@@ -40,6 +39,42 @@ function buscarQuestaoPorId(id) {
     return lista.find(q => q.id == id);
 }
 
+function salvarQuestoes(lista) {
+    fs.writeFileSync(filePath, JSON.stringify(lista, null, 4), "utf-8");
+    return true;
+}
 
 
-module.exports = { login, listarQuestoes, buscarQuestaoPorId }
+function gerarNovoID() {
+    const lista = listarQuestoes();
+    if (lista.length === 0) return 1;
+
+    const ultimoId = lista[lista.length - 1].id;
+    return ultimoId + 1;
+}
+
+function adicionarQuestao(novaQuestao) {
+    const lista = listarQuestoes();
+
+
+    novaQuestao.id = gerarNovoID();
+
+    if (novaQuestao.correta)
+        novaQuestao.correta = novaQuestao.correta.toUpperCase();
+
+    lista.push(novaQuestao);
+
+    salvarQuestoes(lista);
+
+    return novaQuestao;
+}
+
+
+module.exports = { 
+    login,
+    listarQuestoes,
+    buscarQuestaoPorId,
+    salvarQuestoes,
+    gerarNovoID,
+    adicionarQuestao
+};
