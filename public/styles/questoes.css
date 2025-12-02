@@ -68,6 +68,7 @@ body {
     transition: 0.2s;
     border: 2px solid transparent;
     user-select: none;
+    gap: 10px;
 }
 
 .opcao:hover {
