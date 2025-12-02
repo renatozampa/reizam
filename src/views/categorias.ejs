@@ -1,22 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorias | Reizam</title>
 
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/categorias.css">
 
-
-
-
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 </head>
+
 <body>
-    <h1>Categorias</h1>
+
+  
+    <header>
+        <a href="/">Reizam</a>
+        <ul>
+            <li><a href="/questoes">Questões</a></li>
+            <li><a href="/categorias" class="ativo">Categorias</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </header>
+
+    <main class="categorias-container">
+
+        <h1 class="titulo-pagina">Categorias</h1>
+        <p class="subtitulo">Selecione uma matéria para visualizar as questões disponíveis</p>
+
+        <div class="botoes-materias">
+            <button class="btn-materia" onclick="carregar('matemática')">Matemática</button>
+            <button class="btn-materia" onclick="carregar('português')">Português</button>
+            <button class="btn-materia" onclick="carregar('história')">História</button>
+            <button class="btn-materia" onclick="carregar('geografia')">Geografia</button>
+            <button class="btn-materia" onclick="carregar('Ciências')">Ciências</button>
+            <button class="btn-materia" onclick="carregar('Literatura')">Literatura</button>
+            <button class="btn-materia" onclick="carregar('Química')">Química</button>
+        </div>
+
+        
+        <h2 id="tituloCategoria" class="titulo-categoria"></h2>
+
+        
+        <div id="resultado" class="lista-questoes"></div>
+
+    </main>
+
+    <script>
+        async function carregar(materia) {
+
+            const titulo = document.getElementById("tituloCategoria");
+            const resultado = document.getElementById("resultado");
+
+            titulo.innerText = "Carregando...";
+            resultado.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            `;
+
+            const r = await fetch(`/api/questoes?materia=${materia}`);
+            const dados = await r.json();
+
+            titulo.innerText = materia.charAt(0).toUpperCase() + materia.slice(1);
+
+            if (dados.length === 0) {
+                resultado.innerHTML = `
+                    <p class="nenhuma">Nenhuma questão encontrada para esta matéria.</p>
+                `;
+                return;
+            }
+
+            resultado.innerHTML = dados.map(q => `
+                <div class="cartao-questao">
+                    <h3 class="enunciado">${q.enunciado}</h3>
+
+                    <div class="grupo-info">
+                        <span class="tag">${q.materia}</span>
+                        <span class="tag">${q.tema}</span>
+                    </div>
+
+                    <div class="opcoes">
+                        <p><strong>A)</strong> ${q.altA}</p>
+                        <p><strong>B)</strong> ${q.altB}</p>
+                        <p><strong>C)</strong> ${q.altC}</p>
+                        <p><strong>D)</strong> ${q.altD}</p>
+                        <p><strong>E)</strong> ${q.altE}</p>
+                    </div>
+                </div>
+            `).join("");
+        }
+    </script>
+
 </body>
 </html>

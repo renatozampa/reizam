@@ -87,6 +87,22 @@ function atualizarQuestao(id, dadosAtualizados) {
 }
 
 
+function listarQuestoesPorMateria(materia) {
+    const lista = listarQuestoes();
+
+    // Se não veio materia: retorna tudo
+    if (!materia) return lista;
+
+    const materiaFormatada = materia.toLowerCase();
+
+    return lista.filter(q =>
+        (q.materia || "").toLowerCase() === materiaFormatada
+    );
+}
+
+
+
+
 module.exports = { 
     login,
     listarQuestoes,
@@ -94,5 +110,6 @@ module.exports = {
     salvarQuestoes,
     gerarNovoID,
     adicionarQuestao,
-    atualizarQuestao
+    atualizarQuestao,
+    listarQuestoesPorMateria
 };

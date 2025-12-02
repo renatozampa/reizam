@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { login, listarQuestoes, buscarQuestaoPorId, adicionarQuestao, atualizarQuestao} = require("./lib/library");
+const { login, listarQuestoes, buscarQuestaoPorId, adicionarQuestao, atualizarQuestao, listarQuestoesPorMateria} = require("./lib/library");
 const app = express()
 const PORT = 3000
 
@@ -40,6 +40,9 @@ app.get("/editarQuestao/:id", (req, res) => {
         return res.status(404).send("Questão não encontrada!");
     }
     res.render("formEditarQuestao", { questao });
+});
+app.get("/categorias", (req, res) => {
+    res.render("categorias"); 
 });
 
 
@@ -138,6 +141,18 @@ app.post("/editarQuestao/:id", (req, res) => {
     atualizarQuestao(id, dadosAtualizados);
 
     res.redirect("/questoesProfessor");
+});
+
+app.get("/api/questoes", (req, res) => {
+    const { materia } = req.query;
+
+    try {
+        const lista = listarQuestoesPorMateria(materia);
+        res.json(lista);
+    } catch (err) {
+        console.error("Erro na API de questões:", err);
+        res.status(500).json({ erro: "Erro interno no servidor" });
+    }
 });
 
 
