@@ -16,6 +16,13 @@ const professoresVerif = [
     }
 ];
 
+function normalizarQuestao(questao) {
+    if (questao.correta && typeof questao.correta === 'string') {
+        questao.correta = questao.correta.toUpperCase();
+    }
+    return questao;
+}
+
 function verificaLogin(email, senha) {
     return professoresVerif.some(
         (prof) => prof.email === email && prof.senha === senha
@@ -62,14 +69,8 @@ function gerarNovoID() {
 function adicionarQuestao(novaQuestao) {
     const lista = listarQuestoes();
 
-
     novaQuestao.id = gerarNovoID();
-
-    if (novaQuestao.correta)
-        novaQuestao.correta = novaQuestao.correta.toUpperCase();
-
-    lista.push(novaQuestao);
-
+    lista.push(normalizarQuestao(novaQuestao)); 
     salvarQuestoes(lista);
 
     return novaQuestao;
@@ -77,16 +78,16 @@ function adicionarQuestao(novaQuestao) {
 
 function atualizarQuestao(id, dadosAtualizados) {
     const lista = listarQuestoes();
-
     const index = lista.findIndex(q => q.id == id);
+
     if (index === -1) {
         throw new Error("Questão não encontrada");
     }
 
-    lista[index] = {
+    lista[index] = normalizarQuestao({
         ...lista[index],
-        ...dadosAtualizados,
-    };
+        ...dadosAtualizados
+    });
 
     salvarQuestoes(lista)
 }
@@ -94,14 +95,17 @@ function atualizarQuestao(id, dadosAtualizados) {
 
 function listarQuestoesPorMateria(materia) {
     const lista = listarQuestoes();
+    
+    if (!materia) {
+        return lista;
+    }
 
-    if (!materia) return lista;
-
-    const materiaFormatada = materia.toLowerCase();
-
-    return lista.filter(q =>
-        (q.materia || "").toLowerCase() === materiaFormatada
-    );
+    const materiaBuscada = materia.toLowerCase().trim();
+    
+    return lista.filter(questao => {
+        const materiaQuestao = (questao.materia || "").toLowerCase().trim();
+        return materiaQuestao === materiaBuscada;
+    });
 }
 
 
