@@ -88,7 +88,7 @@ function atualizarQuestao(id, dadosAtualizados) {
         ...dadosAtualizados,
     };
 
-    fs.writeFileSync(filePath, JSON.stringify(lista, null, 2), "utf-8");
+    salvarQuestoes(lista)
 }
 
 
