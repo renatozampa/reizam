@@ -40,5 +40,11 @@ describe('Autenticação', () => {
                 login('renato@gmail.com', 'senhaErrada');
             }).toThrow('Esse usuário não é verificado!');
         });
+
+         test('Cenário 7: Deve lançar erro com email e senha inválidos', () => {
+            expect(() => {
+                login('errado@email.com', 'senhaErrada');
+            }).toThrow('Esse usuário não é verificado!');
+        });
     });
 });
