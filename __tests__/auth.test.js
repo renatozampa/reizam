@@ -28,5 +28,11 @@ describe('Autenticação', () => {
                 login('', '');
             }).toThrow('Email e senha devem estar preenchidos');
         });
+
+          test('Cenário 5: Deve lançar erro com email inválido', () => {
+            expect(() => {
+                login('email@errado.com', 'zampa');
+            }).toThrow('Esse usuário não é verificado!');
+        });
     });
 });
