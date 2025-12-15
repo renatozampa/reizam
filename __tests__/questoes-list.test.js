@@ -24,13 +24,20 @@ describe('Listagem de Questões', () => {
             const resultado = listarQuestoes();
             expect(Array.isArray(resultado)).toBe(true);
         });
-        
+
         test('Cenário 9: Deve retornar questões com estrutura correta', () => {
             const resultado = listarQuestoes();
             expect(resultado[0]).toHaveProperty('id');
             expect(resultado[0]).toHaveProperty('questao');
             expect(resultado[0]).toHaveProperty('materia');
             expect(resultado[0]).toHaveProperty('correta');
+        });
+
+        test('Cenário 10: Deve retornar array vazio quando não há questões', () => {
+            fs.readFileSync.mockReturnValue(JSON.stringify([]));
+            const resultado = listarQuestoes();
+            expect(resultado).toEqual([]);
+            expect(resultado.length).toBe(0);
         });
     });
 
