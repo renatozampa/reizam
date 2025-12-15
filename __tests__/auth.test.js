@@ -16,10 +16,16 @@ describe('Autenticação', () => {
                 login('', 'zampa');
             }).toThrow('Email e senha devem estar preenchidos');
         });
-        
+
         test('Cenário 3: Deve lançar erro quando senha não é fornecida', () => {
             expect(() => {
                 login('renato@gmail.com', '');
+            }).toThrow('Email e senha devem estar preenchidos');
+        });
+
+        test('Cenário 4: Deve lançar erro quando ambos email e senha não são fornecidos', () => {
+            expect(() => {
+                login('', '');
             }).toThrow('Email e senha devem estar preenchidos');
         });
     });
