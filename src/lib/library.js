@@ -2,6 +2,12 @@ const fs = require("fs");
 const path = require('path');
 const filePath = path.join(__dirname, '../dataBase/listaQuestoes.json');
 
+
+const FileRepository = {
+    ler: () => JSON.parse(fs.readFileSync(filePath, 'utf-8')),
+    salvar: (dados) => fs.writeFileSync(filePath, JSON.stringify(dados, null, 4), "utf-8")
+};
+
 const professoresVerif = [
     {
         "nome": "Renato Zampa",
@@ -9,6 +15,13 @@ const professoresVerif = [
         "senha": "zampa"
     }
 ];
+
+function normalizarQuestao(questao) {
+    if (questao.correta && typeof questao.correta === 'string') {
+        questao.correta = questao.correta.toUpperCase();
+    }
+    return questao;
+}
 
 function verificaLogin(email, senha) {
     return professoresVerif.some(
@@ -31,7 +44,7 @@ function login(email, senha) {
 
 
 function listarQuestoes() {
-    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    return FileRepository.ler();
 }
 
 function buscarQuestaoPorId(id) {
@@ -40,7 +53,7 @@ function buscarQuestaoPorId(id) {
 }
 
 function salvarQuestoes(lista) {
-    fs.writeFileSync(filePath, JSON.stringify(lista, null, 4), "utf-8");
+    FileRepository.salvar(lista);;
     return true;
 }
 
@@ -56,14 +69,8 @@ function gerarNovoID() {
 function adicionarQuestao(novaQuestao) {
     const lista = listarQuestoes();
 
-
     novaQuestao.id = gerarNovoID();
-
-    if (novaQuestao.correta)
-        novaQuestao.correta = novaQuestao.correta.toUpperCase();
-
-    lista.push(novaQuestao);
-
+    lista.push(normalizarQuestao(novaQuestao)); 
     salvarQuestoes(lista);
 
     return novaQuestao;
@@ -71,31 +78,34 @@ function adicionarQuestao(novaQuestao) {
 
 function atualizarQuestao(id, dadosAtualizados) {
     const lista = listarQuestoes();
-
     const index = lista.findIndex(q => q.id == id);
+
     if (index === -1) {
         throw new Error("Questão não encontrada");
     }
 
-    lista[index] = {
+    lista[index] = normalizarQuestao({
         ...lista[index],
-        ...dadosAtualizados,
-    };
+        ...dadosAtualizados
+    });
 
-    fs.writeFileSync(filePath, JSON.stringify(lista, null, 2), "utf-8");
+    salvarQuestoes(lista)
 }
 
 
 function listarQuestoesPorMateria(materia) {
     const lista = listarQuestoes();
+    
+    if (!materia) {
+        return lista;
+    }
 
-    if (!materia) return lista;
-
-    const materiaFormatada = materia.toLowerCase();
-
-    return lista.filter(q =>
-        (q.materia || "").toLowerCase() === materiaFormatada
-    );
+    const materiaBuscada = materia.toLowerCase().trim();
+    
+    return lista.filter(questao => {
+        const materiaQuestao = (questao.materia || "").toLowerCase().trim();
+        return materiaQuestao === materiaBuscada;
+    });
 }
 
 
