@@ -2,6 +2,12 @@ const fs = require("fs");
 const path = require('path');
 const filePath = path.join(__dirname, '../dataBase/listaQuestoes.json');
 
+
+const FileRepository = {
+    ler: () => JSON.parse(fs.readFileSync(filePath, 'utf-8')),
+    salvar: (dados) => fs.writeFileSync(filePath, JSON.stringify(dados, null, 4), "utf-8")
+};
+
 const professoresVerif = [
     {
         "nome": "Renato Zampa",
@@ -31,7 +37,7 @@ function login(email, senha) {
 
 
 function listarQuestoes() {
-    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    return FileRepository.ler();
 }
 
 function buscarQuestaoPorId(id) {
@@ -40,7 +46,7 @@ function buscarQuestaoPorId(id) {
 }
 
 function salvarQuestoes(lista) {
-    fs.writeFileSync(filePath, JSON.stringify(lista, null, 4), "utf-8");
+    FileRepository.salvar(lista);;
     return true;
 }
 
