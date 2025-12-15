@@ -24,6 +24,13 @@ describe('CRUD de Questões', () => {
             expect(resultado).toBeDefined();
             expect(resultado.id).toBe(1);
         });
+
+        test('Cenário 12: Deve retornar questão com dados corretos', () => {
+            const resultado = buscarQuestaoPorId(2);
+            expect(resultado.questao).toBe("Quanto é 3+3?");
+            expect(resultado.correta).toBe("B");
+        });
+
     })
         
 
