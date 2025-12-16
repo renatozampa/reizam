@@ -80,11 +80,18 @@ describe('CRUD de Questões', () => {
             });
 
             test('Cenário 22: Deve manter resposta correta já em maiúscula', () => {
-            const novaQuestao = { questao: "Teste", correta: "C" };
-            const resultado = adicionarQuestao(novaQuestao);
-            
-            expect(resultado.correta).toBe("C");
-        });
+                const novaQuestao = { questao: "Teste", correta: "C" };
+                const resultado = adicionarQuestao(novaQuestao);
+
+                expect(resultado.correta).toBe("C");
+            });
+
+            test('Cenário 23: Deve chamar writeFileSync para salvar', () => {
+                const novaQuestao = { questao: "Teste", correta: "A" };
+                adicionarQuestao(novaQuestao);
+
+                expect(fs.writeFileSync).toHaveBeenCalled();
+            });
 
 
         });
