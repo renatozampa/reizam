@@ -52,6 +52,14 @@ describe('Repositório e Persistência', () => {
             expect(resultado).toBe(true);
         });
 
+        test('Cenário 40: Deve chamar writeFileSync com dados corretos', () => {
+            const dados = [{ id: 1, questao: "Teste" }];
+            salvarQuestoes(dados);
+            
+            expect(fs.writeFileSync).toHaveBeenCalled();
+            const chamada = fs.writeFileSync.mock.calls[0];
+            expect(JSON.parse(chamada[1])).toEqual(dados);
+        });
         
     });
 
