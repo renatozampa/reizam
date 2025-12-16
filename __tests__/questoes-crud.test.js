@@ -93,6 +93,22 @@ describe('CRUD de Questões', () => {
                 expect(fs.writeFileSync).toHaveBeenCalled();
             });
 
+            test('Cenário 24: Deve retornar a questão adicionada completa', () => {
+                const novaQuestao = {
+                    questao: "Quanto é 2+2?",
+                    alternativaA: "3",
+                    alternativaB: "4",
+                    correta: "b",
+                    materia: "matematica"
+                };
+                const resultado = adicionarQuestao(novaQuestao);
+
+                expect(resultado.questao).toBe("Quanto é 2+2?");
+                expect(resultado.alternativaA).toBe("3");
+                expect(resultado.alternativaB).toBe("4");
+                expect(resultado.correta).toBe("B");
+            });
+
 
         });
 
