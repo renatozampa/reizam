@@ -3,6 +3,7 @@ const fs = require('fs');
 jest.mock('fs');
 
 const {
+    adicionarQuestao,
     buscarQuestaoPorId,
 } = require('../src/lib/library');
 
@@ -54,8 +55,27 @@ describe('CRUD de Questões', () => {
             expect(resultado.id).toBe(1);
         });
 
+        describe('adicionarQuestao()', () => {
+
+            beforeEach(() => {
+                fs.readFileSync.mockReturnValue(JSON.stringify([
+                    { id: 1, questao: "Teste", correta: "A" }
+                ]));
+                fs.writeFileSync.mockImplementation(() => { });
+            });
+
+            test('Cenário 20: Deve adicionar questão com ID gerado automaticamente', () => {
+                const novaQuestao = { questao: "Nova pergunta", correta: "b" };
+                const resultado = adicionarQuestao(novaQuestao);
+
+                expect(resultado).toHaveProperty('id');
+                expect(resultado.id).toBe(2);
+            });
 
 
+
+           
+        });
 
     })
 
