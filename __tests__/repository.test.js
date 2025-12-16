@@ -3,7 +3,8 @@ const fs = require('fs');
 jest.mock('fs');
 
 const {
-    gerarNovoID
+    gerarNovoID,
+    salvarQuestoes
 } = require('../src/lib/library');
 
 describe('Repositório e Persistência', () => {
@@ -38,9 +39,20 @@ describe('Repositório e Persistência', () => {
             expect(resultado).toBe(2);
         });
 
+    });
+
+    describe('salvarQuestoes()', () => {
         
+        beforeEach(() => {
+            fs.writeFileSync.mockImplementation(() => {});
+        });
 
+        test('Cenário 39: Deve retornar true ao salvar com sucesso', () => {
+            const resultado = salvarQuestoes([{ id: 1, questao: "Teste" }]);
+            expect(resultado).toBe(true);
+        });
 
+        
     });
 
 });
