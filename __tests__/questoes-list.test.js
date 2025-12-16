@@ -76,6 +76,11 @@ describe('Listagem de Questões', () => {
             const resultado = listarQuestoesPorMateria("MATEMATICA");
             expect(resultado.length).toBe(2);
         });
+
+        test('Cenário 35: Deve remover espaços extras da matéria buscada', () => {
+            const resultado = listarQuestoesPorMateria("  matematica  ");
+            expect(resultado.length).toBe(2);
+        });
     });
 
 
