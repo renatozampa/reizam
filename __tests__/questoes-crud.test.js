@@ -158,6 +158,21 @@ describe('CRUD de Questões', () => {
             expect(dados[0].materia).toBe("matematica");
         });
 
+
+        test('Cenário 29: Deve atualizar múltiplos campos simultaneamente', () => {
+            atualizarQuestao(1, {
+                questao: "Pergunta atualizada",
+                correta: "d",
+                materia: "historia"
+            });
+
+            const chamada = fs.writeFileSync.mock.calls[0][1];
+            const dados = JSON.parse(chamada);
+            expect(dados[0].questao).toBe("Pergunta atualizada");
+            expect(dados[0].correta).toBe("D");
+            expect(dados[0].materia).toBe("historia");
+        });
+
     });
 
 
