@@ -79,7 +79,12 @@ describe('CRUD de Questões', () => {
                 expect(resultado.correta).toBe("B");
             });
 
-
+            test('Cenário 22: Deve manter resposta correta já em maiúscula', () => {
+            const novaQuestao = { questao: "Teste", correta: "C" };
+            const resultado = adicionarQuestao(novaQuestao);
+            
+            expect(resultado.correta).toBe("C");
+        });
 
 
         });
