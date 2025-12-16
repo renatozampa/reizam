@@ -7,9 +7,9 @@ const {
 } = require('../src/lib/library');
 
 describe('CRUD de Questões', () => {
-    
+
     describe('buscarQuestaoPorId()', () => {
-        
+
         beforeEach(() => {
             const questoesMock = [
                 { id: 1, questao: "Quanto é 2+2?", correta: "A" },
@@ -36,11 +36,23 @@ describe('CRUD de Questões', () => {
             expect(resultado).toBeUndefined();
         });
 
+        test('Cenário 14: Deve funcionar com IDs numéricos grandes', () => {
+            fs.readFileSync.mockReturnValue(JSON.stringify([
+                { id: 1, questao: "Q1" },
+                { id: 9999999999, questao: "Q grande" }
+            ]));
+
+            const resultado = buscarQuestaoPorId(9999999999);
+            expect(resultado).toBeDefined();
+            expect(resultado.id).toBe(9999999999);
+            expect(resultado.questao).toBe("Q grande");
+        });
 
 
 
 
 
+        
     })
-    
+
 });
