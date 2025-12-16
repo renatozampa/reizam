@@ -72,9 +72,16 @@ describe('CRUD de Questões', () => {
                 expect(resultado.id).toBe(2);
             });
 
+            test('Cenário 21: Deve normalizar resposta correta para maiúscula', () => {
+                const novaQuestao = { questao: "Teste", correta: "b" };
+                const resultado = adicionarQuestao(novaQuestao);
+
+                expect(resultado.correta).toBe("B");
+            });
 
 
-           
+
+
         });
 
     })
