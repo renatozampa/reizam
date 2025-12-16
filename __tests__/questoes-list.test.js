@@ -3,20 +3,21 @@ const fs = require('fs');
 jest.mock('fs');
 
 const {
+    listarQuestoesPorMateria,
     listarQuestoes,
 } = require('../src/lib/library');
 
 describe('Listagem de Questões', () => {
-    
-   
+
+
     describe('listarQuestoes()', () => {
-        
+
         beforeEach(() => {
             const questoesMock = [
                 { id: 1, questao: "Teste 1", materia: "matematica", correta: "A" },
                 { id: 2, questao: "Teste 2", materia: "portugues", correta: "B" }
             ];
-            
+
             fs.readFileSync.mockReturnValue(JSON.stringify(questoesMock));
         });
 
@@ -39,6 +40,26 @@ describe('Listagem de Questões', () => {
             expect(resultado).toEqual([]);
             expect(resultado.length).toBe(0);
         });
+    });
+
+    describe('listarQuestoesPorMateria()', () => {
+
+        beforeEach(() => {
+            const questoesMock = [
+                { id: 1, questao: "Q1", materia: "matematica" },
+                { id: 2, questao: "Q2", materia: "portugues" },
+                { id: 3, questao: "Q3", materia: "matematica" },
+                { id: 4, questao: "Q4", materia: "historia" },
+                { id: 5, questao: "Q5", materia: null }
+            ];
+            fs.readFileSync.mockReturnValue(JSON.stringify(questoesMock));
+        });
+
+        test('Cenário 31: Deve retornar todas as questões quando matéria não é fornecida', () => {
+            const resultado = listarQuestoesPorMateria();
+            expect(resultado.length).toBe(5);
+        });
+
     });
 
 
