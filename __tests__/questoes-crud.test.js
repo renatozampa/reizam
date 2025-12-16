@@ -132,7 +132,11 @@ describe('CRUD de Questões', () => {
             }).not.toThrow();
         });
 
-        
+        test('Cenário 26: Deve lançar erro para ID inexistente', () => {
+            expect(() => {
+                atualizarQuestao(999, { questao: "Teste" });
+            }).toThrow('Questão não encontrada');
+        });
 
         
     });
