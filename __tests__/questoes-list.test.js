@@ -64,6 +64,13 @@ describe('Listagem de Questões', () => {
             const resultado = listarQuestoesPorMateria(null);
             expect(resultado.length).toBe(5);
         });
+
+        test('Cenário 33: Deve filtrar questões por matéria específica', () => {
+            const resultado = listarQuestoesPorMateria("matematica");
+            expect(resultado.length).toBe(2);
+            expect(resultado[0].materia).toBe("matematica");
+            expect(resultado[1].materia).toBe("matematica");
+        });
     });
 
 
