@@ -48,11 +48,15 @@ describe('CRUD de Questões', () => {
             expect(resultado.questao).toBe("Q grande");
         });
 
+        test('Cenário 15: Deve aceitar ID como string e converter', () => {
+            const resultado = buscarQuestaoPorId("1");
+            expect(resultado).toBeDefined();
+            expect(resultado.id).toBe(1);
+        });
 
 
 
 
-        
     })
 
 });
