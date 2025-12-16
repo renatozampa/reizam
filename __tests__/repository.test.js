@@ -7,9 +7,9 @@ const {
 } = require('../src/lib/library');
 
 describe('Repositório e Persistência', () => {
-    
+
     describe('gerarNovoID()', () => {
-        
+
         test('Cenário 16: Deve retornar 1 quando não há questões', () => {
             fs.readFileSync.mockReturnValue(JSON.stringify([]));
             const resultado = gerarNovoID();
@@ -31,6 +31,15 @@ describe('Repositório e Persistência', () => {
             const resultado = gerarNovoID();
             expect(resultado).toBe(11);
         });
+
+        test('Cenário 19: Deve funcionar com apenas uma questão', () => {
+            fs.readFileSync.mockReturnValue(JSON.stringify([{ id: 1 }]));
+            const resultado = gerarNovoID();
+            expect(resultado).toBe(2);
+        });
+
+
+
     });
 
 });
