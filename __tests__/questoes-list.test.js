@@ -60,6 +60,10 @@ describe('Listagem de Questões', () => {
             expect(resultado.length).toBe(5);
         });
 
+        test('Cenário 32: Deve retornar todas as questões quando matéria é null', () => {
+            const resultado = listarQuestoesPorMateria(null);
+            expect(resultado.length).toBe(5);
+        });
     });
 
 
