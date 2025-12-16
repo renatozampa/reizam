@@ -87,6 +87,11 @@ describe('Listagem de Questões', () => {
             expect(resultado).toEqual([]);
             expect(resultado.length).toBe(0);
         });
+
+        test('Cenário 37: Deve lidar com questões sem matéria definida', () => {
+            const resultado = listarQuestoesPorMateria("matematica");
+            expect(resultado.every(q => q.id !== 5)).toBe(true);
+        });
     });
 
 
