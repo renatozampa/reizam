@@ -71,6 +71,11 @@ describe('Listagem de Questões', () => {
             expect(resultado[0].materia).toBe("matematica");
             expect(resultado[1].materia).toBe("matematica");
         });
+
+        test('Cenário 34: Deve ser case-insensitive (maiúsculas/minúsculas)', () => {
+            const resultado = listarQuestoesPorMateria("MATEMATICA");
+            expect(resultado.length).toBe(2);
+        });
     });
 
 
