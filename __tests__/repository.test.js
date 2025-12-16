@@ -68,6 +68,15 @@ describe('Repositório e Persistência', () => {
             const chamada = fs.writeFileSync.mock.calls[0][1];
             expect(JSON.parse(chamada)).toEqual([]);
         });
+
+        test('Cenário 42: Deve formatar JSON com 4 espaços', () => {
+            salvarQuestoes([{ id: 1 }]);
+            
+            const chamada = fs.writeFileSync.mock.calls[0][1];
+            
+            expect(chamada).toContain('    '); 
+            expect(chamada).toContain('[\n    {\n');
+        });
         
     });
 
