@@ -31,8 +31,16 @@ describe('CRUD de Questões', () => {
             expect(resultado.correta).toBe("B");
         });
 
-    })
-        
+        test('Cenário 13: Deve retornar undefined para ID inexistente', () => {
+            const resultado = buscarQuestaoPorId(99999999);
+            expect(resultado).toBeUndefined();
+        });
 
+
+
+
+
+
+    })
     
 });
