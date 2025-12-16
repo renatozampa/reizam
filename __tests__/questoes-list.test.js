@@ -81,6 +81,12 @@ describe('Listagem de Questões', () => {
             const resultado = listarQuestoesPorMateria("  matematica  ");
             expect(resultado.length).toBe(2);
         });
+
+        test('Cenário 36: Deve retornar array vazio para matéria inexistente', () => {
+            const resultado = listarQuestoesPorMateria("fisica");
+            expect(resultado).toEqual([]);
+            expect(resultado.length).toBe(0);
+        });
     });
 
 
