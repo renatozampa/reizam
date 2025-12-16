@@ -143,12 +143,21 @@ describe('CRUD de Questões', () => {
 
         test('Cenário 27: Deve normalizar resposta correta ao atualizar', () => {
             atualizarQuestao(1, { correta: "c" });
-            
+
             const chamada = fs.writeFileSync.mock.calls[0][1];
             const dados = JSON.parse(chamada);
             expect(dados[0].correta).toBe("C");
         });
-        
+
+        test('Cenário 28: Deve manter campos não alterados', () => {
+            atualizarQuestao(1, { questao: "Nova pergunta" });
+
+            const chamada = fs.writeFileSync.mock.calls[0][1];
+            const dados = JSON.parse(chamada);
+            expect(dados[0].correta).toBe("A");
+            expect(dados[0].materia).toBe("matematica");
+        });
+
     });
 
 
