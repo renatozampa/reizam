@@ -124,6 +124,8 @@ describe('CRUD de Questões', () => {
             ];
             fs.readFileSync.mockReturnValue(JSON.stringify(questoesMock));
             fs.writeFileSync.mockImplementation(() => { });
+
+            jest.clearAllMocks()
         });
 
         test('Cenário 25: Deve atualizar questão existente', () => {
@@ -138,6 +140,14 @@ describe('CRUD de Questões', () => {
             }).toThrow('Questão não encontrada');
         });
 
+
+        test('Cenário 27: Deve normalizar resposta correta ao atualizar', () => {
+            atualizarQuestao(1, { correta: "c" });
+            
+            const chamada = fs.writeFileSync.mock.calls[0][1];
+            const dados = JSON.parse(chamada);
+            expect(dados[0].correta).toBe("C");
+        });
         
     });
 
