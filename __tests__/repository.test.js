@@ -45,6 +45,7 @@ describe('Repositório e Persistência', () => {
         
         beforeEach(() => {
             fs.writeFileSync.mockImplementation(() => {});
+            jest.clearAllMocks()
         });
 
         test('Cenário 39: Deve retornar true ao salvar com sucesso', () => {
@@ -59,6 +60,13 @@ describe('Repositório e Persistência', () => {
             expect(fs.writeFileSync).toHaveBeenCalled();
             const chamada = fs.writeFileSync.mock.calls[0];
             expect(JSON.parse(chamada[1])).toEqual(dados);
+        });
+
+        test('Cenário 41: Deve salvar array vazio corretamente', () => {
+            salvarQuestoes([]);
+            
+            const chamada = fs.writeFileSync.mock.calls[0][1];
+            expect(JSON.parse(chamada)).toEqual([]);
         });
         
     });
