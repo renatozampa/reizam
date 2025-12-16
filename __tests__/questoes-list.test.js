@@ -92,6 +92,12 @@ describe('Listagem de Questões', () => {
             const resultado = listarQuestoesPorMateria("matematica");
             expect(resultado.every(q => q.id !== 5)).toBe(true);
         });
+
+        test('Cenário 38: Deve retornar apenas questões da matéria solicitada', () => {
+            const resultado = listarQuestoesPorMateria("portugues");
+            expect(resultado.length).toBe(1);
+            expect(resultado[0].id).toBe(2);
+        });
     });
 
 
