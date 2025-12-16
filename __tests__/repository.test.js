@@ -15,7 +15,7 @@ describe('Repositório e Persistência', () => {
             const resultado = gerarNovoID();
             expect(resultado).toBe(1);
         });
-        
+
         test('Cenário 17: Deve retornar próximo ID sequencial', () => {
             fs.readFileSync.mockReturnValue(JSON.stringify([
                 { id: 1 }, { id: 2 }, { id: 3 }
@@ -24,6 +24,13 @@ describe('Repositório e Persistência', () => {
             expect(resultado).toBe(4);
         });
 
+        test('Cenário 18: Deve incrementar corretamente IDs não sequenciais', () => {
+            fs.readFileSync.mockReturnValue(JSON.stringify([
+                { id: 1 }, { id: 5 }, { id: 10 }
+            ]));
+            const resultado = gerarNovoID();
+            expect(resultado).toBe(11);
+        });
     });
 
 });
