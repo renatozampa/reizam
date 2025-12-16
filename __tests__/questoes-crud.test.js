@@ -173,6 +173,10 @@ describe('CRUD de Questões', () => {
             expect(dados[0].materia).toBe("historia");
         });
 
+        test('Cenário 30: Deve chamar writeFileSync ao atualizar', () => {
+            atualizarQuestao(1, { questao: "Nova" });
+            expect(fs.writeFileSync).toHaveBeenCalled();
+        });
     });
 
 
