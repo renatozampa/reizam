@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require('path');
-const filePath = path.join(__dirname, '../dataBase/listaQuestoes.json');
+const filePath = path.join(__dirname, '../database/listaQuestoes.json');
 
 
 const FileRepository = {
