@@ -25,7 +25,11 @@ afterEach(async function() {
     await driver.findElement(By.id("email")).sendKeys("renato@gmail.com")
     await driver.findElement(By.id("senha")).sendKeys("zampa")
     await driver.findElement(By.id("senha")).sendKeys(Key.ENTER)
-    await driver.findElement(By.xpath("//*[contains(text(),'Editar')]")).click()
+    const editar = await driver.wait(
+      until.elementLocated(By.xpath("//*[contains(text(),'Editar')]")),
+      10000
+    )
+    await editar.click()
     await driver.findElement(By.id("enunciado")).click()
     await driver.findElement(By.id("enunciado")).sendKeys("Qual é a capital da França?\\nteste")
     await driver.findElement(By.id("materia")).click()
