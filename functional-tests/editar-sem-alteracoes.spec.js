@@ -2,9 +2,9 @@
 require('chromedriver')
 const { Builder, By, Key, until } = require('selenium-webdriver')
 const assert = require('assert')
-const { fazerLogin } = require('./helpers')
 
-describe('Editar Sem alterações', function() {
+
+describe('Editar sem alteracoes', function() {
 this.timeout(30000)
 let driver
 let vars
@@ -16,15 +16,14 @@ beforeEach(async function() {
 afterEach(async function() {
   await driver.quit();
 })
-  it('Editar Sem alterações', async function() {
+  it('Editar sem alteracoes', async function() {
     await driver.get("http://localhost:3000/")
-    await driver.manage().window().setRect({ width: 1281, height: 725 })
     await driver.findElement(By.linkText("Login")).click()
     await driver.findElement(By.id("email")).click()
     await driver.findElement(By.id("email")).sendKeys("renato@gmail.com")
     await driver.findElement(By.id("senha")).sendKeys("zampa")
     await driver.findElement(By.id("senha")).sendKeys(Key.ENTER)
-    await driver.findElement(By.css('.btn-editar')).click()
+    await driver.findElement(By.xpath("//*[contains(text(),'Editar')]")).click()
     await driver.findElement(By.css(".btn")).click()
   })
 })
