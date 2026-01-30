@@ -1,4 +1,10 @@
 # Reizam
 
+Projeto com maior desafio técnico para mim.
 
-Commit do Renato Zampa na data 19/12
+Mesmo com um JS simples, aplicar boas práticas de:  
+  -   qualidade de código;  
+  -   testes funcionais;  
+  -   testes unitários;
+    
+foram grandes desafios!  
